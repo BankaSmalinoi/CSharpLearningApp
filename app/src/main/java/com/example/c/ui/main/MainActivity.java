@@ -1,0 +1,158 @@
+package com.example.c.ui.main;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
+import com.example.c.R;
+import com.example.c.ui.practice.PracticeListFragment;
+import com.example.c.ui.progress.ProgressFragment;
+import com.example.c.ui.test.TestListFragment;
+import com.example.c.ui.theory.TheoryListFragment;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
+
+import android.util.Log;
+
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.c.viewmodel.UserViewModel;
+
+public class MainActivity extends AppCompatActivity {
+
+    public static final String EXTRA_OPEN_SECTION = "open_section";
+
+    public static final String SECTION_THEORY = "theory";
+    public static final String SECTION_PRACTICE = "practice";
+    public static final String SECTION_TESTS = "tests";
+    public static final String SECTION_PROGRESS = "progress";
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private MaterialToolbar toolbar;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navigationView);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+        );
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_theory) {
+                openSection(SECTION_THEORY);
+            } else if (itemId == R.id.nav_practice) {
+                openSection(SECTION_PRACTICE);
+            } else if (itemId == R.id.nav_tests) {
+                openSection(SECTION_TESTS);
+            } else if (itemId == R.id.nav_progress) {
+                openSection(SECTION_PROGRESS);
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        userViewModel.getUser().observe(this, user -> {
+            if (user == null) {
+                userViewModel.createUser("Пользователь", null);
+            } else {
+                Log.d("ROOM_TEST", "User from DB: " + user.displayName);
+            }
+        });
+
+        if (savedInstanceState == null) {
+            String section = getIntent().getStringExtra(EXTRA_OPEN_SECTION);
+            if (section == null) {
+                section = SECTION_THEORY;
+            }
+            openSection(section);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        String section = intent.getStringExtra(EXTRA_OPEN_SECTION);
+        if (section != null) {
+            openSection(section);
+        }
+    }
+
+    private void openSection(String section) {
+        Fragment fragment;
+        String title;
+        @IdRes int checkedItemId;
+
+        switch (section) {
+            case SECTION_PRACTICE:
+                fragment = new PracticeListFragment();
+                title = "Практика";
+                checkedItemId = R.id.nav_practice;
+                break;
+
+            case SECTION_TESTS:
+                fragment = new TestListFragment();
+                title = "Тесты";
+                checkedItemId = R.id.nav_tests;
+                break;
+
+            case SECTION_PROGRESS:
+                fragment = new ProgressFragment();
+                title = "Статистика";
+                checkedItemId = R.id.nav_progress;
+                break;
+
+            case SECTION_THEORY:
+            default:
+                fragment = new TheoryListFragment();
+                title = "Теория";
+                checkedItemId = R.id.nav_theory;
+                break;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
+
+        toolbar.setTitle(title);
+        navigationView.setCheckedItem(checkedItemId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+}
