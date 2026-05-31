@@ -353,6 +353,7 @@ public class TestPassingActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, TestResultActivity.class);
+        intent.putExtra(EXTRA_TEST_ID, currentTest.id);
         intent.putExtra(EXTRA_CORRECT, correct);
         intent.putExtra(EXTRA_TOTAL, total);
         intent.putExtra(EXTRA_SCORE_PERCENT, scorePercent);

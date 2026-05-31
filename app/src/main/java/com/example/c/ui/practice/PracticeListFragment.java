@@ -1,5 +1,6 @@
 package com.example.c.ui.practice;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -19,37 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.c.data.db.entity.TopicProgressEntity;
-import com.example.c.data.model.practice.PracticeTask;
-import com.example.c.data.model.theory.TheoryTopic;
-import com.example.c.viewmodel.PracticeViewModel;
-import com.example.c.viewmodel.TheoryViewModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class PracticeListFragment extends Fragment {
 
-    private PracticeViewModel practiceViewModel;
-    private TheoryViewModel theoryViewModel;
-
     private LinearLayout contentContainer;
     private TextView emptyView;
-
-    private List<TheoryTopic> topics = new ArrayList<>();
-    private Map<String, List<PracticeTask>> tasksByTopic = new LinkedHashMap<>();
-    private Map<String, TopicProgressEntity> progressMap = new HashMap<>();
-
-    // Пока БД решений не подключаем. Когда появится таблица решений, сюда нужно передавать id решённых задач.
-    private final Set<String> solvedTaskIds = new HashSet<>();
+    private PracticeResultStorage resultStorage;
+    private List<PracticeTopicData> topicGroups;
+    private Set<String> solvedTaskIds = new HashSet<>();
 
     @Nullable
     @Override
@@ -77,103 +59,50 @@ public class PracticeListFragment extends Fragment {
         emptyView.setGravity(Gravity.CENTER);
         emptyView.setVisibility(View.GONE);
 
-        root.addView(scrollView, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-        root.addView(emptyView, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
-
+        root.addView(scrollView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        root.addView(emptyView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        practiceViewModel = new ViewModelProvider(this).get(PracticeViewModel.class);
-        theoryViewModel = new ViewModelProvider(this).get(TheoryViewModel.class);
-
-        topics = theoryViewModel.getAllTopics();
-        tasksByTopic = practiceViewModel.getTasksGroupedByTopic();
-
+        resultStorage = new PracticeResultStorage(requireContext());
+        topicGroups = PracticeDataLoader.loadGrouped(requireContext());
         renderPracticeList();
+    }
 
-        theoryViewModel.observeAllProgress().observe(getViewLifecycleOwner(), new Observer<List<TopicProgressEntity>>() {
-            @Override
-            public void onChanged(List<TopicProgressEntity> progressList) {
-                progressMap.clear();
-                if (progressList != null) {
-                    for (TopicProgressEntity item : progressList) {
-                        if (item != null && item.topicId != null) {
-                            progressMap.put(item.topicId, item);
-                        }
-                    }
-                }
-                renderPracticeList();
-            }
-        });
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (resultStorage != null) {
+            renderPracticeList();
+        }
     }
 
     private void renderPracticeList() {
-        if (contentContainer == null) {
-            return;
-        }
-
+        if (contentContainer == null) return;
         contentContainer.removeAllViews();
+        solvedTaskIds = resultStorage == null ? new HashSet<String>() : resultStorage.getSolvedTaskIds();
 
-        if (tasksByTopic == null || tasksByTopic.isEmpty()) {
+        if (topicGroups == null || topicGroups.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
             return;
         }
-
         emptyView.setVisibility(View.GONE);
 
-        Map<String, TheoryTopic> topicMap = new LinkedHashMap<>();
-        if (topics != null) {
-            for (TheoryTopic topic : topics) {
-                if (topic != null && topic.id != null) {
-                    topicMap.put(topic.id, topic);
-                }
-            }
-        }
-
-        if (topics != null && !topics.isEmpty()) {
-            for (TheoryTopic topic : topics) {
-                if (topic == null || topic.id == null) {
-                    continue;
-                }
-                List<PracticeTask> tasks = tasksByTopic.get(topic.id);
-                if (tasks != null && !tasks.isEmpty()) {
-                    addTopicSection(topic, tasks);
-                }
-            }
-        }
-
-        // На случай, если в JSON есть задания для темы, которой нет в theory_topics.json.
-        for (Map.Entry<String, List<PracticeTask>> entry : tasksByTopic.entrySet()) {
-            if (!topicMap.containsKey(entry.getKey())) {
-                TheoryTopic fakeTopic = new TheoryTopic();
-                fakeTopic.id = entry.getKey();
-                fakeTopic.title = "Дополнительная практика";
-                fakeTopic.description = "Практические задания";
-                addTopicSection(fakeTopic, entry.getValue());
-            }
+        for (PracticeTopicData topic : topicGroups) {
+            addTopicSection(topic);
         }
     }
 
-    private void addTopicSection(TheoryTopic topic, List<PracticeTask> tasks) {
-        boolean topicRead = isTopicRead(topic.id);
+    private void addTopicSection(PracticeTopicData topic) {
+        final boolean topicRead = TheoryReadStateStorage.isTheoryRead(requireContext(), topic.id);
 
         LinearLayout section = new LinearLayout(requireContext());
         section.setOrientation(LinearLayout.VERTICAL);
         section.setPadding(0, 0, 0, dp(8));
-        LinearLayout.LayoutParams sectionParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
+        LinearLayout.LayoutParams sectionParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sectionParams.bottomMargin = dp(16);
         section.setLayoutParams(sectionParams);
 
@@ -184,7 +113,7 @@ public class PracticeListFragment extends Fragment {
         header.setBackground(createBackground(topicRead ? Color.parseColor("#DDF2E1") : Color.WHITE, Color.parseColor("#DED7EA"), dp(16)));
 
         TextView headerTexts = new TextView(requireContext());
-        headerTexts.setText(topic.getTitle() + "\n" + tasks.size() + " практическ" + getTaskWordEnding(tasks.size()) + " задан" + getAssignmentWordEnding(tasks.size()));
+        headerTexts.setText(topic.title + "\n" + topic.tasks.size() + " практическ" + getTaskWordEnding(topic.tasks.size()) + " задан" + getAssignmentWordEnding(topic.tasks.size()));
         headerTexts.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         headerTexts.setTypeface(Typeface.DEFAULT_BOLD);
         headerTexts.setTextColor(Color.parseColor("#202124"));
@@ -202,15 +131,14 @@ public class PracticeListFragment extends Fragment {
         header.addView(statusIcon);
         section.addView(header);
 
-        for (PracticeTask task : tasks) {
+        for (PracticeTaskData task : topic.tasks) {
             section.addView(createTaskCard(task, topicRead));
         }
-
         contentContainer.addView(section);
     }
 
-    private View createTaskCard(final PracticeTask task, final boolean topicRead) {
-        final boolean solved = task.solved || solvedTaskIds.contains(task.id);
+    private View createTaskCard(final PracticeTaskData task, final boolean topicRead) {
+        final boolean solved = solvedTaskIds.contains(task.id);
         final boolean unlocked = !task.requiresTheoryRead || topicRead;
 
         LinearLayout card = new LinearLayout(requireContext());
@@ -233,10 +161,7 @@ public class PracticeListFragment extends Fragment {
         card.setBackground(createBackground(backgroundColor, strokeColor, dp(14)));
         card.setAlpha(unlocked ? 1f : 0.72f);
 
-        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         cardParams.leftMargin = dp(8);
         cardParams.rightMargin = dp(8);
         cardParams.topMargin = dp(10);
@@ -286,63 +211,26 @@ public class PracticeListFragment extends Fragment {
         card.addView(icon);
 
         card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            @Override public void onClick(View v) {
                 if (!unlocked) {
                     Toast.makeText(requireContext(), "Сначала прочитайте теорию по этой теме", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                openTaskScreen(task);
+                Intent intent = new Intent(requireContext(), PracticeTaskActivity.class);
+                intent.putExtra(PracticeTaskActivity.EXTRA_TASK_ID, task.id);
+                startActivity(intent);
             }
         });
 
         return card;
     }
 
-    private String getTaskStatusText(PracticeTask task, boolean unlocked, boolean solved) {
-        if (solved) {
-            return "Решено";
-        }
-        if (!unlocked) {
-            return "Закрыто: сначала прочитайте теорию";
-        }
-
+    private String getTaskStatusText(PracticeTaskData task, boolean unlocked, boolean solved) {
+        if (solved) return "Решено";
+        if (!unlocked) return "Закрыто: сначала прочитайте теорию";
         String difficulty = task.getDifficulty();
-        if (!isBlank(difficulty)) {
-            return "Доступно • " + translateDifficulty(difficulty);
-        }
+        if (!isBlank(difficulty)) return "Доступно • " + translateDifficulty(difficulty);
         return "Доступно";
-    }
-
-    private void openTaskScreen(PracticeTask task) {
-        if (task == null || isBlank(task.id)) {
-            Toast.makeText(requireContext(), "Не удалось открыть задание", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        PracticeTaskScreenFragment fragment = PracticeTaskScreenFragment.newInstance(task.id);
-        requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
-                .add(android.R.id.content, fragment, "practice_task_screen")
-                .addToBackStack("practice_task_screen")
-                .commit();
-    }
-
-    private boolean isTopicRead(String topicId) {
-        if (isBlank(topicId)) {
-            return true;
-        }
-        TopicProgressEntity progress = progressMap.get(topicId);
-        if (progress != null && progress.isActuallyRead()) {
-            return true;
-        }
-        try {
-            return theoryViewModel != null && theoryViewModel.isTheoryRead(topicId);
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     private String translateDifficulty(String difficulty) {
@@ -376,11 +264,7 @@ public class PracticeListFragment extends Fragment {
     }
 
     private int dp(int value) {
-        return Math.round(TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                value,
-                getResources().getDisplayMetrics()
-        ));
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics()));
     }
 
     private boolean isBlank(String value) {

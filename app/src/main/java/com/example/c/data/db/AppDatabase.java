@@ -21,6 +21,10 @@ import com.example.c.data.db.entity.TestAttemptEntity;
 import com.example.c.data.db.entity.TestProgressEntity;
 import com.example.c.data.db.entity.TopicProgressEntity;
 import com.example.c.data.db.entity.UserEntity;
+import com.example.c.data.local.dao.StatisticsDao;
+import com.example.c.data.local.entity.DailyActivityEntity;
+import com.example.c.data.local.entity.TaskSolutionHistoryEntity;
+import com.example.c.data.local.entity.TestSolutionHistoryEntity;
 
 @Database(
         entities = {
@@ -30,9 +34,12 @@ import com.example.c.data.db.entity.UserEntity;
                 TestAttemptEntity.class,
                 PracticeProgressEntity.class,
                 PracticeAttemptEntity.class,
-                AppStatisticsEntity.class
+                AppStatisticsEntity.class,
+                DailyActivityEntity.class,
+                TaskSolutionHistoryEntity.class,
+                TestSolutionHistoryEntity.class
         },
-        version = 2,
+        version = 3,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -45,6 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TestProgressDao testProgressDao();
     public abstract PracticeProgressDao practiceProgressDao();
     public abstract AppStatisticsDao appStatisticsDao();
+    public abstract StatisticsDao statisticsDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {

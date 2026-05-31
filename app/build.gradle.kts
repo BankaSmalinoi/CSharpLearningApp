@@ -46,6 +46,8 @@ dependencies {
 
     implementation(libs.gson)
 
+    implementation("androidx.work:work-runtime:2.9.1")
+
     // Room / SQLite
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")

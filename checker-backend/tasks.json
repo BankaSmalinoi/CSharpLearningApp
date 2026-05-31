@@ -1,0 +1,764 @@
+{
+  "tasks": [
+    {
+      "id": "intro_programming_enemy_algorithm",
+      "topicId": "intro_programming",
+      "title": "Алгоритм поведения врага",
+      "description": "Опишите простую игровую ситуацию: если враг находится рядом с игроком, он атакует, иначе сообщает, что игрок слишком далеко. В программе уже можно задать расстояние переменной.",
+      "taskText": "Создайте переменную distanceToPlayer. Если расстояние меньше или равно 3, выведите сообщение «Враг атакует игрока», иначе выведите «Враг слишком далеко».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "2",
+      "outputExample": "Враг атакует игрока",
+      "hint": "Алгоритм должен состоять из проверки расстояния и выбора одного из двух действий.",
+      "solutionExample": "int distanceToPlayer = 2;\n\nif (distanceToPlayer <= 3)\n{\n    Console.WriteLine(\"Враг атакует игрока\");\n}\nelse\n{\n    Console.WriteLine(\"Враг слишком далеко\");\n}",
+      "tests": [
+        {
+          "input": "2",
+          "expectedOutput": "Враг атакует игрока"
+        }
+      ]
+    },
+    {
+      "id": "ide_fix_game_script_errors",
+      "topicId": "ide",
+      "title": "Найди ошибки в игровом скрипте",
+      "description": "Представьте, что IDE подсветила ошибки в маленьком фрагменте кода игры. Нужно переписать код правильно.",
+      "taskText": "Исправьте код так, чтобы программа хранила здоровье игрока, урон врага и выводила здоровье после атаки.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "playerHealth = 100, damage = 20",
+      "outputExample": "Здоровье игрока: 80",
+      "hint": "В C# нужно указывать тип переменной и заканчивать команды точкой с запятой.",
+      "solutionExample": "int playerHealth = 100;\nint damage = 20;\n\nplayerHealth -= damage;\n\nConsole.WriteLine(\"Здоровье игрока: \" + playerHealth);",
+      "tests": [
+        {
+          "input": "playerHealth = 100, damage = 20",
+          "expectedOutput": "Здоровье игрока: 80"
+        }
+      ]
+    },
+    {
+      "id": "variables_player_stats",
+      "topicId": "variables",
+      "title": "Характеристики героя",
+      "description": "Создайте набор переменных, которые описывают игрового персонажа.",
+      "taskText": "Создайте переменные: имя героя, здоровье, количество монет и уровень. Выведите их в консоль в понятном виде.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Knight, 100, 25, 1",
+      "outputExample": "Герой: Knight\nЗдоровье: 100\nМонеты: 25\nУровень: 1",
+      "hint": "Для имени используйте string, для числовых характеристик — int.",
+      "solutionExample": "string heroName = \"Knight\";\nint health = 100;\nint coins = 25;\nint level = 1;\n\nConsole.WriteLine(\"Герой: \" + heroName);\nConsole.WriteLine(\"Здоровье: \" + health);\nConsole.WriteLine(\"Монеты: \" + coins);\nConsole.WriteLine(\"Уровень: \" + level);",
+      "tests": [
+        {
+          "input": "Knight, 100, 25, 1",
+          "expectedOutput": "Герой: Knight\nЗдоровье: 100\nМонеты: 25\nУровень: 1"
+        }
+      ]
+    },
+    {
+      "id": "variables_collect_coins",
+      "topicId": "variables",
+      "title": "Сбор монет",
+      "description": "Игрок нашёл сундук с монетами. Нужно изменить значение переменной с количеством монет.",
+      "taskText": "Создайте переменную coins со значением 10. Затем добавьте к ней 5 монет и выведите итог.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "10 + 5",
+      "outputExample": "Монеты: 15",
+      "hint": "Значение переменной можно изменить через coins = coins + 5 или coins += 5.",
+      "solutionExample": "int coins = 10;\ncoins += 5;\n\nConsole.WriteLine(\"Монеты: \" + coins);",
+      "tests": [
+        {
+          "input": "10 + 5",
+          "expectedOutput": "Монеты: 15"
+        }
+      ]
+    },
+    {
+      "id": "data_types_game_profile",
+      "topicId": "data_types",
+      "title": "Профиль игрового персонажа",
+      "description": "Подберите правильные типы данных для разных характеристик персонажа.",
+      "taskText": "Создайте переменные для имени героя, уровня, скорости, состояния жизни и ранга. Выведите все значения.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Mage, 3, 4.5, true, A",
+      "outputExample": "Имя: Mage\nУровень: 3\nСкорость: 4.5\nЖив: True\nРанг: A",
+      "hint": "Имя — string, уровень — int, скорость — double, состояние — bool, ранг — char.",
+      "solutionExample": "string heroName = \"Mage\";\nint level = 3;\ndouble speed = 4.5;\nbool isAlive = true;\nchar rank = 'A';\n\nConsole.WriteLine(\"Имя: \" + heroName);\nConsole.WriteLine(\"Уровень: \" + level);\nConsole.WriteLine(\"Скорость: \" + speed);\nConsole.WriteLine(\"Жив: \" + isAlive);\nConsole.WriteLine(\"Ранг: \" + rank);",
+      "tests": [
+        {
+          "input": "Mage, 3, 4.5, true, A",
+          "expectedOutput": "Имя: Mage\nУровень: 3\nСкорость: 4.5\nЖив: True\nРанг: A"
+        }
+      ]
+    },
+    {
+      "id": "data_types_door_state",
+      "topicId": "data_types",
+      "title": "Состояние двери",
+      "description": "В игре дверь может быть открыта или закрыта. Для такого состояния подходит логический тип.",
+      "taskText": "Создайте переменную isDoorOpen. Если дверь открыта, выведите «Дверь открыта», иначе «Дверь закрыта».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "false",
+      "outputExample": "Дверь закрыта",
+      "hint": "Для состояний да/нет используется bool.",
+      "solutionExample": "bool isDoorOpen = false;\n\nif (isDoorOpen)\n{\n    Console.WriteLine(\"Дверь открыта\");\n}\nelse\n{\n    Console.WriteLine(\"Дверь закрыта\");\n}",
+      "tests": [
+        {
+          "input": "false",
+          "expectedOutput": "Дверь закрыта"
+        }
+      ]
+    },
+    {
+      "id": "console_io_create_hero",
+      "topicId": "console_io",
+      "title": "Создание героя",
+      "description": "Пользователь вводит имя героя, а программа приветствует его в игровом мире.",
+      "taskText": "Считайте имя героя с клавиатуры и выведите приветствие.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Archer",
+      "outputExample": "Добро пожаловать, Archer!",
+      "hint": "Используйте Console.ReadLine() для ввода и Console.WriteLine() для вывода.",
+      "solutionExample": "Console.WriteLine(\"Введите имя героя:\");\nstring heroName = Console.ReadLine();\n\nConsole.WriteLine(\"Добро пожаловать, \" + heroName + \"!\");",
+      "tests": [
+        {
+          "input": "Archer",
+          "expectedOutput": "Добро пожаловать, Archer!"
+        }
+      ]
+    },
+    {
+      "id": "console_io_text_battle_choice",
+      "topicId": "console_io",
+      "title": "Выбор действия в бою",
+      "description": "Игрок выбирает действие в текстовой битве: атаковать или защищаться.",
+      "taskText": "Выведите меню действий. Считайте выбор пользователя. Если введено 1, выведите «Вы атаковали врага», иначе выведите «Вы защищаетесь».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "1",
+      "outputExample": "Вы атаковали врага",
+      "hint": "Ввод из Console.ReadLine() приходит как строка, поэтому сравнивайте с \"1\".",
+      "solutionExample": "Console.WriteLine(\"Выберите действие: 1 - Атаковать, 2 - Защищаться\");\nstring choice = Console.ReadLine();\n\nif (choice == \"1\")\n{\n    Console.WriteLine(\"Вы атаковали врага\");\n}\nelse\n{\n    Console.WriteLine(\"Вы защищаетесь\");\n}",
+      "tests": [
+        {
+          "input": "1",
+          "expectedOutput": "Вы атаковали врага"
+        }
+      ]
+    },
+    {
+      "id": "type_conversion_damage_input",
+      "topicId": "type_conversion",
+      "title": "Ввод силы удара",
+      "description": "Игрок вводит силу удара числом. Программа должна превратить введённый текст в число и рассчитать здоровье врага после атаки.",
+      "taskText": "Считайте урон с клавиатуры. У врага 100 HP. Вычтите введённый урон и выведите оставшееся здоровье.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "30",
+      "outputExample": "HP врага: 70",
+      "hint": "Console.ReadLine() возвращает string. Преобразуйте значение через int.Parse или Convert.ToInt32.",
+      "solutionExample": "int enemyHealth = 100;\n\nConsole.WriteLine(\"Введите урон:\");\nint damage = int.Parse(Console.ReadLine());\n\nenemyHealth -= damage;\n\nConsole.WriteLine(\"HP врага: \" + enemyHealth);",
+      "tests": [
+        {
+          "input": "30",
+          "expectedOutput": "HP врага: 70"
+        }
+      ]
+    },
+    {
+      "id": "type_conversion_safe_coin_input",
+      "topicId": "type_conversion",
+      "title": "Безопасный ввод монет",
+      "description": "Игрок вводит количество найденных монет. Нужно обработать ситуацию, если введено не число.",
+      "taskText": "Считайте строку. Если её можно преобразовать в int, выведите количество монет. Иначе выведите «Ошибка ввода».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "15",
+      "outputExample": "Получено монет: 15",
+      "hint": "Для безопасного преобразования используйте int.TryParse.",
+      "solutionExample": "Console.WriteLine(\"Введите количество монет:\");\nstring input = Console.ReadLine();\nint coins;\n\nif (int.TryParse(input, out coins))\n{\n    Console.WriteLine(\"Получено монет: \" + coins);\n}\nelse\n{\n    Console.WriteLine(\"Ошибка ввода\");\n}",
+      "tests": [
+        {
+          "input": "15",
+          "expectedOutput": "Получено монет: 15"
+        }
+      ]
+    },
+    {
+      "id": "strings_battle_message",
+      "topicId": "strings",
+      "title": "Сообщение о боевом событии",
+      "description": "Создайте красивое текстовое сообщение о том, что герой нанёс урон врагу.",
+      "taskText": "Создайте переменные heroName, enemyName и damage. Выведите сообщение через интерполяцию строк.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Hero, Goblin, 25",
+      "outputExample": "Hero атакует Goblin и наносит 25 урона!",
+      "hint": "Используйте строку с символом $ и фигурными скобками.",
+      "solutionExample": "string heroName = \"Hero\";\nstring enemyName = \"Goblin\";\nint damage = 25;\n\nConsole.WriteLine($\"{heroName} атакует {enemyName} и наносит {damage} урона!\");",
+      "tests": [
+        {
+          "input": "Hero, Goblin, 25",
+          "expectedOutput": "Hero атакует Goblin и наносит 25 урона!"
+        }
+      ]
+    },
+    {
+      "id": "strings_command_processing",
+      "topicId": "strings",
+      "title": "Обработка команды игрока",
+      "description": "Игрок вводит команду текстом. Нужно сделать проверку команды без учёта регистра.",
+      "taskText": "Считайте команду. Переведите её в нижний регистр. Если команда содержит attack, выведите «Атака выполнена», иначе «Команда не распознана».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "ATTACK goblin",
+      "outputExample": "Атака выполнена",
+      "hint": "Используйте ToLower() и Contains().",
+      "solutionExample": "string command = Console.ReadLine().ToLower();\n\nif (command.Contains(\"attack\"))\n{\n    Console.WriteLine(\"Атака выполнена\");\n}\nelse\n{\n    Console.WriteLine(\"Команда не распознана\");\n}",
+      "tests": [
+        {
+          "input": "ATTACK goblin",
+          "expectedOutput": "Атака выполнена"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic_damage_formula",
+      "topicId": "arithmetic",
+      "title": "Расчёт итогового урона",
+      "description": "В игре итоговый урон зависит от базового урона, бонуса оружия и защиты врага.",
+      "taskText": "Создайте переменные baseDamage, weaponBonus и enemyDefense. Рассчитайте итоговый урон по формуле baseDamage + weaponBonus - enemyDefense и выведите результат.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "20, 5, 10",
+      "outputExample": "Итоговый урон: 15",
+      "hint": "Используйте сложение и вычитание. Для понятности можно использовать скобки.",
+      "solutionExample": "int baseDamage = 20;\nint weaponBonus = 5;\nint enemyDefense = 10;\n\nint totalDamage = baseDamage + weaponBonus - enemyDefense;\n\nConsole.WriteLine(\"Итоговый урон: \" + totalDamage);",
+      "tests": [
+        {
+          "input": "20, 5, 10",
+          "expectedOutput": "Итоговый урон: 15"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic_xp_distribution",
+      "topicId": "arithmetic",
+      "title": "Деление награды между игроками",
+      "description": "После победы группа игроков делит опыт поровну. Нужно посчитать опыт на одного игрока и остаток.",
+      "taskText": "Создайте totalXP и players. Посчитайте xpPerPlayer через деление и remainder через остаток от деления.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "100 XP, 3 игрока",
+      "outputExample": "Каждый получил: 33\nОстаток опыта: 1",
+      "hint": "Используйте операторы / и %.",
+      "solutionExample": "int totalXP = 100;\nint players = 3;\n\nint xpPerPlayer = totalXP / players;\nint remainder = totalXP % players;\n\nConsole.WriteLine(\"Каждый получил: \" + xpPerPlayer);\nConsole.WriteLine(\"Остаток опыта: \" + remainder);",
+      "tests": [
+        {
+          "input": "100 XP, 3 игрока",
+          "expectedOutput": "Каждый получил: 33\nОстаток опыта: 1"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic_critical_hit",
+      "topicId": "arithmetic",
+      "title": "Критический удар",
+      "description": "Если атака критическая, урон увеличивается в два раза.",
+      "taskText": "Создайте damage со значением 18. Рассчитайте criticalDamage как damage * 2 и выведите его.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "18",
+      "outputExample": "Критический урон: 36",
+      "hint": "Для увеличения в два раза используется умножение на 2.",
+      "solutionExample": "int damage = 18;\nint criticalDamage = damage * 2;\n\nConsole.WriteLine(\"Критический урон: \" + criticalDamage);",
+      "tests": [
+        {
+          "input": "18",
+          "expectedOutput": "Критический урон: 36"
+        }
+      ]
+    },
+    {
+      "id": "logic_can_cast_spell",
+      "topicId": "logic",
+      "title": "Можно ли использовать заклинание",
+      "description": "Заклинание можно использовать, если у игрока достаточно маны и враг находится рядом.",
+      "taskText": "Создайте переменные mana и isEnemyNear. Если mana >= 10 и isEnemyNear равно true, выведите «Заклинание использовано», иначе «Нельзя использовать заклинание».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "mana = 15, isEnemyNear = true",
+      "outputExample": "Заклинание использовано",
+      "hint": "Нужно объединить два условия оператором &&.",
+      "solutionExample": "int mana = 15;\nbool isEnemyNear = true;\n\nif (mana >= 10 && isEnemyNear)\n{\n    Console.WriteLine(\"Заклинание использовано\");\n}\nelse\n{\n    Console.WriteLine(\"Нельзя использовать заклинание\");\n}",
+      "tests": [
+        {
+          "input": "mana = 15, isEnemyNear = true",
+          "expectedOutput": "Заклинание использовано"
+        }
+      ]
+    },
+    {
+      "id": "logic_level_unlock",
+      "topicId": "logic",
+      "title": "Открытие нового уровня",
+      "description": "Новый уровень открывается, если игрок набрал достаточно очков или победил босса.",
+      "taskText": "Создайте score и isBossDefeated. Если score >= 1000 или isBossDefeated равно true, выведите «Новый уровень открыт». Иначе выведите «Уровень закрыт».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "score = 800, isBossDefeated = true",
+      "outputExample": "Новый уровень открыт",
+      "hint": "Для проверки одного из двух условий используется ||.",
+      "solutionExample": "int score = 800;\nbool isBossDefeated = true;\n\nif (score >= 1000 || isBossDefeated)\n{\n    Console.WriteLine(\"Новый уровень открыт\");\n}\nelse\n{\n    Console.WriteLine(\"Уровень закрыт\");\n}",
+      "tests": [
+        {
+          "input": "score = 800, isBossDefeated = true",
+          "expectedOutput": "Новый уровень открыт"
+        }
+      ]
+    },
+    {
+      "id": "logic_player_death",
+      "topicId": "logic",
+      "title": "Проверка смерти игрока",
+      "description": "Если игрок не жив, нужно вывести сообщение о поражении.",
+      "taskText": "Создайте bool isAlive. Если игрок не жив, выведите «Игра окончена», иначе «Игра продолжается».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "false",
+      "outputExample": "Игра окончена",
+      "hint": "Используйте оператор ! для отрицания.",
+      "solutionExample": "bool isAlive = false;\n\nif (!isAlive)\n{\n    Console.WriteLine(\"Игра окончена\");\n}\nelse\n{\n    Console.WriteLine(\"Игра продолжается\");\n}",
+      "tests": [
+        {
+          "input": "false",
+          "expectedOutput": "Игра окончена"
+        }
+      ]
+    },
+    {
+      "id": "if_else_health_status",
+      "topicId": "if_else",
+      "title": "Состояние здоровья героя",
+      "description": "Нужно вывести разное сообщение в зависимости от количества HP героя.",
+      "taskText": "Создайте hp. Если hp > 80 — «Отличное здоровье», если hp > 30 — «Среднее здоровье», иначе — «Критическое здоровье».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "50",
+      "outputExample": "Среднее здоровье",
+      "hint": "Используйте цепочку if, else if, else. Порядок условий важен.",
+      "solutionExample": "int hp = 50;\n\nif (hp > 80)\n{\n    Console.WriteLine(\"Отличное здоровье\");\n}\nelse if (hp > 30)\n{\n    Console.WriteLine(\"Среднее здоровье\");\n}\nelse\n{\n    Console.WriteLine(\"Критическое здоровье\");\n}",
+      "tests": [
+        {
+          "input": "50",
+          "expectedOutput": "Среднее здоровье"
+        }
+      ]
+    },
+    {
+      "id": "if_else_door_with_key",
+      "topicId": "if_else",
+      "title": "Дверь и ключ",
+      "description": "Игрок может пройти через дверь только если у него есть ключ.",
+      "taskText": "Создайте bool hasKey. Если ключ есть, выведите «Дверь открыта», иначе «Нужен ключ».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "hasKey = false",
+      "outputExample": "Нужен ключ",
+      "hint": "Состояние наличия ключа удобно хранить в bool.",
+      "solutionExample": "bool hasKey = false;\n\nif (hasKey)\n{\n    Console.WriteLine(\"Дверь открыта\");\n}\nelse\n{\n    Console.WriteLine(\"Нужен ключ\");\n}",
+      "tests": [
+        {
+          "input": "hasKey = false",
+          "expectedOutput": "Нужен ключ"
+        }
+      ]
+    },
+    {
+      "id": "if_else_battle_action",
+      "topicId": "if_else",
+      "title": "Выбор действия в бою",
+      "description": "Игрок вводит команду: attack, heal или другую. Программа должна реагировать по-разному.",
+      "taskText": "Считайте строку action. Если action == attack, выведите «Вы атаковали». Если heal — «Вы лечитесь». Иначе — «Неизвестное действие».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "heal",
+      "outputExample": "Вы лечитесь",
+      "hint": "Для нескольких вариантов используйте else if.",
+      "solutionExample": "string action = Console.ReadLine();\n\nif (action == \"attack\")\n{\n    Console.WriteLine(\"Вы атаковали\");\n}\nelse if (action == \"heal\")\n{\n    Console.WriteLine(\"Вы лечитесь\");\n}\nelse\n{\n    Console.WriteLine(\"Неизвестное действие\");\n}",
+      "tests": [
+        {
+          "input": "heal",
+          "expectedOutput": "Вы лечитесь"
+        }
+      ]
+    },
+    {
+      "id": "for_loop_spawn_enemies",
+      "topicId": "for_loop",
+      "title": "Создание волны врагов",
+      "description": "На уровне появляется несколько врагов. Нужно вывести сообщение для каждого созданного врага.",
+      "taskText": "С помощью цикла for выведите сообщения «Создан враг номер 1» до «Создан враг номер 5».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "5 врагов",
+      "outputExample": "Создан враг номер 1\nСоздан враг номер 2\nСоздан враг номер 3\nСоздан враг номер 4\nСоздан враг номер 5",
+      "hint": "Счётчик цикла можно начать с 1 и выполнять цикл пока i <= 5.",
+      "solutionExample": "for (int i = 1; i <= 5; i++)\n{\n    Console.WriteLine(\"Создан враг номер \" + i);\n}",
+      "tests": [
+        {
+          "input": "5 врагов",
+          "expectedOutput": "Создан враг номер 1\nСоздан враг номер 2\nСоздан враг номер 3\nСоздан враг номер 4\nСоздан враг номер 5"
+        }
+      ]
+    },
+    {
+      "id": "for_loop_round_score",
+      "topicId": "for_loop",
+      "title": "Очки за раунды",
+      "description": "Игрок получает 10 очков за каждый пройденный раунд.",
+      "taskText": "Создайте totalScore = 0. С помощью цикла for на 3 раунда начисляйте по 10 очков. Выведите итог.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "3 раунда по 10 очков",
+      "outputExample": "Итоговые очки: 30",
+      "hint": "Внутри цикла увеличивайте totalScore на 10.",
+      "solutionExample": "int totalScore = 0;\n\nfor (int round = 1; round <= 3; round++)\n{\n    totalScore += 10;\n}\n\nConsole.WriteLine(\"Итоговые очки: \" + totalScore);",
+      "tests": [
+        {
+          "input": "3 раунда по 10 очков",
+          "expectedOutput": "Итоговые очки: 30"
+        }
+      ]
+    },
+    {
+      "id": "for_loop_draw_map",
+      "topicId": "for_loop",
+      "title": "Рисование игровой карты",
+      "description": "Нужно вывести простую карту 3 на 3 из символов #.",
+      "taskText": "Используйте вложенные циклы for, чтобы вывести квадрат 3x3.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "размер 3x3",
+      "outputExample": "# # #\n# # #\n# # #",
+      "hint": "Внешний цикл отвечает за строки, внутренний — за столбцы.",
+      "solutionExample": "for (int y = 1; y <= 3; y++)\n{\n    for (int x = 1; x <= 3; x++)\n    {\n        Console.Write(\"# \");\n    }\n    Console.WriteLine();\n}",
+      "tests": [
+        {
+          "input": "размер 3x3",
+          "expectedOutput": "# # #\n# # #\n# # #"
+        }
+      ]
+    },
+    {
+      "id": "while_loop_enemy_battle",
+      "topicId": "while_loop",
+      "title": "Бой до победы",
+      "description": "Игрок атакует врага, пока здоровье врага не станет меньше или равно нулю.",
+      "taskText": "Создайте enemyHealth = 50. Пока enemyHealth > 0, уменьшайте его на 10 и выводите текущее здоровье. После цикла выведите «Враг побеждён».",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "enemyHealth = 50, damage = 10",
+      "outputExample": "HP врага: 40\nHP врага: 30\nHP врага: 20\nHP врага: 10\nHP врага: 0\nВраг побеждён",
+      "hint": "Используйте while (enemyHealth > 0).",
+      "solutionExample": "int enemyHealth = 50;\n\nwhile (enemyHealth > 0)\n{\n    enemyHealth -= 10;\n    Console.WriteLine(\"HP врага: \" + enemyHealth);\n}\n\nConsole.WriteLine(\"Враг побеждён\");",
+      "tests": [
+        {
+          "input": "enemyHealth = 50, damage = 10",
+          "expectedOutput": "HP врага: 40\nHP врага: 30\nHP врага: 20\nHP врага: 10\nHP врага: 0\nВраг побеждён"
+        }
+      ]
+    },
+    {
+      "id": "while_loop_game_menu",
+      "topicId": "while_loop",
+      "title": "Простое игровое меню",
+      "description": "Меню должно работать, пока игрок не выберет выход.",
+      "taskText": "Создайте bool isRunning = true. В цикле while выводите меню. Если пользователь ввёл 2, завершите цикл.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "2",
+      "outputExample": "Выход из игры",
+      "hint": "Чтобы выйти из цикла, можно изменить isRunning на false.",
+      "solutionExample": "bool isRunning = true;\n\nwhile (isRunning)\n{\n    Console.WriteLine(\"1 - Играть\");\n    Console.WriteLine(\"2 - Выход\");\n\n    string choice = Console.ReadLine();\n\n    if (choice == \"2\")\n    {\n        isRunning = false;\n        Console.WriteLine(\"Выход из игры\");\n    }\n}",
+      "tests": [
+        {
+          "input": "2",
+          "expectedOutput": "Выход из игры"
+        }
+      ]
+    },
+    {
+      "id": "while_loop_collect_until_goal",
+      "topicId": "while_loop",
+      "title": "Сбор монет до цели",
+      "description": "Игрок собирает монеты, пока не накопит нужную сумму.",
+      "taskText": "Создайте coins = 0. Пока coins < 20, добавляйте по 5 монет и выводите текущее количество.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "цель 20 монет",
+      "outputExample": "Монеты: 5\nМонеты: 10\nМонеты: 15\nМонеты: 20",
+      "hint": "Условие цикла должно проверять, достигнута ли цель.",
+      "solutionExample": "int coins = 0;\n\nwhile (coins < 20)\n{\n    coins += 5;\n    Console.WriteLine(\"Монеты: \" + coins);\n}",
+      "tests": [
+        {
+          "input": "цель 20 монет",
+          "expectedOutput": "Монеты: 5\nМонеты: 10\nМонеты: 15\nМонеты: 20"
+        }
+      ]
+    },
+    {
+      "id": "arrays_inventory_slots",
+      "topicId": "arrays",
+      "title": "Слоты инвентаря",
+      "description": "Инвентарь можно представить как массив предметов.",
+      "taskText": "Создайте массив inventory из трёх предметов. Выведите каждый предмет с номером слота.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Sword, Potion, Shield",
+      "outputExample": "Слот 0: Sword\nСлот 1: Potion\nСлот 2: Shield",
+      "hint": "Используйте цикл for и свойство Length.",
+      "solutionExample": "string[] inventory = { \"Sword\", \"Potion\", \"Shield\" };\n\nfor (int i = 0; i < inventory.Length; i++)\n{\n    Console.WriteLine(\"Слот \" + i + \": \" + inventory[i]);\n}",
+      "tests": [
+        {
+          "input": "Sword, Potion, Shield",
+          "expectedOutput": "Слот 0: Sword\nСлот 1: Potion\nСлот 2: Shield"
+        }
+      ]
+    },
+    {
+      "id": "arrays_total_enemy_damage",
+      "topicId": "arrays",
+      "title": "Общий урон врагов",
+      "description": "На игрока напали несколько врагов. Урон каждого врага хранится в массиве.",
+      "taskText": "Создайте массив damages = { 10, 15, 20 }. Посчитайте общий урон и выведите его.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "10, 15, 20",
+      "outputExample": "Общий урон: 45",
+      "hint": "Создайте переменную total и прибавляйте к ней элементы массива в цикле.",
+      "solutionExample": "int[] damages = { 10, 15, 20 };\nint total = 0;\n\nfor (int i = 0; i < damages.Length; i++)\n{\n    total += damages[i];\n}\n\nConsole.WriteLine(\"Общий урон: \" + total);",
+      "tests": [
+        {
+          "input": "10, 15, 20",
+          "expectedOutput": "Общий урон: 45"
+        }
+      ]
+    },
+    {
+      "id": "arrays_change_weapon",
+      "topicId": "arrays",
+      "title": "Замена оружия",
+      "description": "Игрок улучшил оружие во втором слоте инвентаря.",
+      "taskText": "Создайте массив weapons = { \"Sword\", \"Bow\", \"Staff\" }. Замените Bow на Crossbow и выведите второй элемент.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Sword, Bow, Staff",
+      "outputExample": "Crossbow",
+      "hint": "Второй элемент имеет индекс 1.",
+      "solutionExample": "string[] weapons = { \"Sword\", \"Bow\", \"Staff\" };\n\nweapons[1] = \"Crossbow\";\n\nConsole.WriteLine(weapons[1]);",
+      "tests": [
+        {
+          "input": "Sword, Bow, Staff",
+          "expectedOutput": "Crossbow"
+        }
+      ]
+    },
+    {
+      "id": "lists_dynamic_inventory",
+      "topicId": "lists",
+      "title": "Динамический инвентарь",
+      "description": "Игрок получает предметы во время игры. Количество предметов заранее неизвестно.",
+      "taskText": "Создайте List<string> inventory. Добавьте Sword, Potion и Key. Выведите количество предметов и все предметы.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Sword, Potion, Key",
+      "outputExample": "Количество предметов: 3\nSword\nPotion\nKey",
+      "hint": "Не забудьте using System.Collections.Generic.",
+      "solutionExample": "using System.Collections.Generic;\n\nList<string> inventory = new List<string>();\ninventory.Add(\"Sword\");\ninventory.Add(\"Potion\");\ninventory.Add(\"Key\");\n\nConsole.WriteLine(\"Количество предметов: \" + inventory.Count);\n\nfor (int i = 0; i < inventory.Count; i++)\n{\n    Console.WriteLine(inventory[i]);\n}",
+      "tests": [
+        {
+          "input": "Sword, Potion, Key",
+          "expectedOutput": "Количество предметов: 3\nSword\nPotion\nKey"
+        }
+      ]
+    },
+    {
+      "id": "lists_use_key",
+      "topicId": "lists",
+      "title": "Использование ключа",
+      "description": "Если у игрока есть ключ, он может открыть дверь. После использования ключ исчезает из инвентаря.",
+      "taskText": "Создайте список inventory с предметами Sword, Key, Potion. Если Key есть в списке, выведите «Дверь открыта» и удалите Key.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Sword, Key, Potion",
+      "outputExample": "Дверь открыта\nПредметов осталось: 2",
+      "hint": "Используйте Contains и Remove.",
+      "solutionExample": "using System.Collections.Generic;\n\nList<string> inventory = new List<string>();\ninventory.Add(\"Sword\");\ninventory.Add(\"Key\");\ninventory.Add(\"Potion\");\n\nif (inventory.Contains(\"Key\"))\n{\n    Console.WriteLine(\"Дверь открыта\");\n    inventory.Remove(\"Key\");\n}\n\nConsole.WriteLine(\"Предметов осталось: \" + inventory.Count);",
+      "tests": [
+        {
+          "input": "Sword, Key, Potion",
+          "expectedOutput": "Дверь открыта\nПредметов осталось: 2"
+        }
+      ]
+    },
+    {
+      "id": "lists_active_enemies",
+      "topicId": "lists",
+      "title": "Список активных врагов",
+      "description": "На уровне появляются враги, и их список может изменяться.",
+      "taskText": "Создайте список врагов. Добавьте Goblin, Orc, Mage. Удалите Goblin после победы и выведите оставшихся врагов.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "Goblin, Orc, Mage",
+      "outputExample": "Orc\nMage",
+      "hint": "Список удобен, когда объекты появляются и исчезают.",
+      "solutionExample": "using System.Collections.Generic;\n\nList<string> enemies = new List<string>();\nenemies.Add(\"Goblin\");\nenemies.Add(\"Orc\");\nenemies.Add(\"Mage\");\n\nenemies.Remove(\"Goblin\");\n\nfor (int i = 0; i < enemies.Count; i++)\n{\n    Console.WriteLine(enemies[i]);\n}",
+      "tests": [
+        {
+          "input": "Goblin, Orc, Mage",
+          "expectedOutput": "Orc\nMage"
+        }
+      ]
+    },
+    {
+      "id": "methods_attack_method",
+      "topicId": "methods",
+      "title": "Метод атаки",
+      "description": "Повторяющуюся логику атаки лучше вынести в метод.",
+      "taskText": "Создайте метод AttackEnemy, который принимает имя врага и урон, а затем выводит сообщение об атаке.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Goblin, 20",
+      "outputExample": "Вы атаковали Goblin и нанесли 20 урона",
+      "hint": "Метод должен принимать два параметра: string enemyName и int damage.",
+      "solutionExample": "static void AttackEnemy(string enemyName, int damage)\n{\n    Console.WriteLine(\"Вы атаковали \" + enemyName + \" и нанесли \" + damage + \" урона\");\n}\n\nAttackEnemy(\"Goblin\", 20);",
+      "tests": [
+        {
+          "input": "Goblin, 20",
+          "expectedOutput": "Вы атаковали Goblin и нанесли 20 урона"
+        }
+      ]
+    },
+    {
+      "id": "methods_calculate_damage",
+      "topicId": "methods",
+      "title": "Метод расчёта урона",
+      "description": "Итоговый урон можно рассчитывать отдельным методом, чтобы не повторять формулу.",
+      "taskText": "Создайте метод CalculateDamage, который принимает baseDamage и bonus, возвращает их сумму. Вызовите метод и выведите результат.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "20, 5",
+      "outputExample": "Урон: 25",
+      "hint": "Метод должен возвращать int через return.",
+      "solutionExample": "static int CalculateDamage(int baseDamage, int bonus)\n{\n    return baseDamage + bonus;\n}\n\nint damage = CalculateDamage(20, 5);\nConsole.WriteLine(\"Урон: \" + damage);",
+      "tests": [
+        {
+          "input": "20, 5",
+          "expectedOutput": "Урон: 25"
+        }
+      ]
+    },
+    {
+      "id": "methods_heal_player",
+      "topicId": "methods",
+      "title": "Метод лечения игрока",
+      "description": "Лечение персонажа — отдельное действие, которое удобно оформить методом.",
+      "taskText": "Создайте метод Heal, который принимает hp и healAmount, возвращает новое значение hp. Выведите результат.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "hp = 60, healAmount = 25",
+      "outputExample": "HP после лечения: 85",
+      "hint": "Метод должен вернуть hp + healAmount.",
+      "solutionExample": "static int Heal(int hp, int healAmount)\n{\n    return hp + healAmount;\n}\n\nint playerHealth = 60;\nplayerHealth = Heal(playerHealth, 25);\n\nConsole.WriteLine(\"HP после лечения: \" + playerHealth);",
+      "tests": [
+        {
+          "input": "hp = 60, healAmount = 25",
+          "expectedOutput": "HP после лечения: 85"
+        }
+      ]
+    },
+    {
+      "id": "classes_player_object",
+      "topicId": "classes_objects",
+      "title": "Класс игрока",
+      "description": "Создайте класс Player, который хранит имя и здоровье героя.",
+      "taskText": "Опишите класс Player с полями Name и Health. Создайте объект игрока, заполните поля и выведите информацию.",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Knight, 100",
+      "outputExample": "Имя: Knight\nЗдоровье: 100",
+      "hint": "Класс — это шаблон, объект создаётся через new.",
+      "solutionExample": "class Player\n{\n    public string Name;\n    public int Health;\n}\n\nPlayer hero = new Player();\nhero.Name = \"Knight\";\nhero.Health = 100;\n\nConsole.WriteLine(\"Имя: \" + hero.Name);\nConsole.WriteLine(\"Здоровье: \" + hero.Health);",
+      "tests": [
+        {
+          "input": "Knight, 100",
+          "expectedOutput": "Имя: Knight\nЗдоровье: 100"
+        }
+      ]
+    },
+    {
+      "id": "classes_enemy_attack",
+      "topicId": "classes_objects",
+      "title": "Класс врага с атакой",
+      "description": "Враг должен хранить свой тип и уметь атаковать игрока.",
+      "taskText": "Создайте класс Enemy с полем Type и методом Attack, который выводит сообщение «Goblin атакует игрока».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Goblin",
+      "outputExample": "Goblin атакует игрока",
+      "hint": "Метод класса может использовать поля этого же объекта.",
+      "solutionExample": "class Enemy\n{\n    public string Type;\n\n    public void Attack()\n    {\n        Console.WriteLine(Type + \" атакует игрока\");\n    }\n}\n\nEnemy goblin = new Enemy();\ngoblin.Type = \"Goblin\";\ngoblin.Attack();",
+      "tests": [
+        {
+          "input": "Goblin",
+          "expectedOutput": "Goblin атакует игрока"
+        }
+      ]
+    },
+    {
+      "id": "classes_item_use",
+      "topicId": "classes_objects",
+      "title": "Класс игрового предмета",
+      "description": "Предмет в игре можно представить объектом с названием и действием использования.",
+      "taskText": "Создайте класс Item с полем Name и методом Use. Метод должен выводить «Вы использовали Potion».",
+      "difficulty": "easy",
+      "requiresTheoryRead": true,
+      "inputExample": "Potion",
+      "outputExample": "Вы использовали Potion",
+      "hint": "Сначала создайте объект, затем задайте ему Name и вызовите Use().",
+      "solutionExample": "class Item\n{\n    public string Name;\n\n    public void Use()\n    {\n        Console.WriteLine(\"Вы использовали \" + Name);\n    }\n}\n\nItem potion = new Item();\npotion.Name = \"Potion\";\npotion.Use();",
+      "tests": [
+        {
+          "input": "Potion",
+          "expectedOutput": "Вы использовали Potion"
+        }
+      ]
+    },
+    {
+      "id": "classes_player_vs_enemy",
+      "topicId": "classes_objects",
+      "title": "Игрок атакует врага",
+      "description": "Создайте два класса и реализуйте простое взаимодействие объектов.",
+      "taskText": "Создайте классы Player и Enemy. У игрока должен быть Damage, у врага Health. Метод Attack должен уменьшать здоровье врага.",
+      "difficulty": "medium",
+      "requiresTheoryRead": true,
+      "inputExample": "Damage = 20, Enemy HP = 50",
+      "outputExample": "HP врага: 30",
+      "hint": "Метод Player.Attack может принимать объект Enemy как параметр.",
+      "solutionExample": "class Enemy\n{\n    public int Health = 50;\n}\n\nclass Player\n{\n    public int Damage = 20;\n\n    public void Attack(Enemy enemy)\n    {\n        enemy.Health -= Damage;\n    }\n}\n\nPlayer hero = new Player();\nEnemy goblin = new Enemy();\n\nhero.Attack(goblin);\n\nConsole.WriteLine(\"HP врага: \" + goblin.Health);",
+      "tests": [
+        {
+          "input": "Damage = 20, Enemy HP = 50",
+          "expectedOutput": "HP врага: 30"
+        }
+      ]
+    }
+  ]
+}

@@ -1,10 +1,7 @@
 package com.example.c.ui.main;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
@@ -13,18 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.c.R;
 import com.example.c.data.repository.StatisticsRepository;
-import com.example.c.notifications.InactivityReminderScheduler;
 import com.example.c.ui.practice.PracticeListFragment;
 import com.example.c.ui.progress.ProgressFragment;
 import com.example.c.ui.test.TestListFragment;
 import com.example.c.ui.theory.TheoryListFragment;
-import com.example.c.viewmodel.UserViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+
+import android.util.Log;
+
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.c.viewmodel.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        registerAppOpenForStatistics();
-        InactivityReminderScheduler.reschedule(this);
-        requestNotificationPermissionIfNeeded();
+        new Thread(() -> {
+            new StatisticsRepository(getApplicationContext()).registerAppOpen();
+        }).start();
+        ReminderScheduler.schedule(this);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
         userViewModel.getUser().observe(this, user -> {
             if (user == null) {
                 userViewModel.createUser("Пользователь", null);
@@ -149,16 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setTitle(title);
         navigationView.setCheckedItem(checkedItemId);
-    }
-
-    private void registerAppOpenForStatistics() {
-        new Thread(() -> new StatisticsRepository(getApplicationContext()).registerAppOpen()).start();
-    }
-
-    private void requestNotificationPermissionIfNeeded() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 4107);
-        }
     }
 
     @Override

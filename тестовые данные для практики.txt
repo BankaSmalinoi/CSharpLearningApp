@@ -1,0 +1,10 @@
+int distanceToPlayer = 2;
+
+if (distanceToPlayer <= 3)
+{
+    Console.WriteLine("Враг атакует игрока");
+}
+else
+{
+    Console.WriteLine("Враг слишком далеко");
+}

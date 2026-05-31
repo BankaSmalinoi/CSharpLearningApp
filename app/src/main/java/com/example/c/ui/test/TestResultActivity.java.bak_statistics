@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.c.R;
-import com.example.c.data.repository.StatisticsRepository;
 import com.example.c.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 
@@ -19,9 +18,6 @@ public class TestResultActivity extends AppCompatActivity {
     private TextView tvTestComment;
     private MaterialButton btnRetakeTest;
     private MaterialButton btnBackToTests;
-
-    private String testId;
-    private String testTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,17 +30,9 @@ public class TestResultActivity extends AppCompatActivity {
         btnRetakeTest = findViewById(R.id.btnRetakeTest);
         btnBackToTests = findViewById(R.id.btnBackToTests);
 
-        Intent sourceIntent = getIntent();
-        int correct = sourceIntent.getIntExtra(TestPassingActivity.EXTRA_CORRECT, 0);
-        int total = sourceIntent.getIntExtra(TestPassingActivity.EXTRA_TOTAL, 1);
-        int percent = total <= 0 ? 0 : Math.round((correct * 100f) / total);
-        testId = sourceIntent.getStringExtra(TestPassingActivity.EXTRA_TEST_ID);
-        testTitle = sourceIntent.getStringExtra(TestPassingActivity.EXTRA_TEST_TITLE);
-        if (testTitle == null || testTitle.trim().isEmpty()) {
-            testTitle = "Тест";
-        }
-
-        registerTestResultForStatistics(testId, testTitle, correct, total);
+        int correct = getIntent().getIntExtra(TestPassingActivity.EXTRA_CORRECT, 0);
+        int total = getIntent().getIntExtra(TestPassingActivity.EXTRA_TOTAL, 1);
+        int percent = (correct * 100) / total;
 
         tvTestPercent.setText(percent + "%");
         tvTestSummary.setText("Правильных ответов: " + correct + " из " + total);
@@ -52,27 +40,11 @@ public class TestResultActivity extends AppCompatActivity {
 
         btnRetakeTest.setOnClickListener(v -> {
             Intent intent = new Intent(TestResultActivity.this, TestPassingActivity.class);
-            if (testId != null && !testId.trim().isEmpty()) {
-                intent.putExtra(TestPassingActivity.EXTRA_TEST_ID, testId);
-            }
             startActivity(intent);
             finish();
         });
 
         btnBackToTests.setOnClickListener(v -> openMainSection(MainActivity.SECTION_TESTS));
-    }
-
-    private void registerTestResultForStatistics(final String testId, final String testTitle, final int correct, final int total) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String safeId = testId == null || testId.trim().isEmpty()
-                        ? "test_" + System.currentTimeMillis()
-                        : testId;
-                new StatisticsRepository(getApplicationContext())
-                        .registerSolvedTest(safeId, testTitle, correct, total);
-            }
-        }).start();
     }
 
     private String buildComment(int percent) {

@@ -1,7 +1,5 @@
 package com.example.c.ui.practice;
 
-import com.example.c.data.repository.StatisticsRepository;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -295,7 +293,6 @@ public class PracticeTaskActivity extends AppCompatActivity {
                                 result.getActualOutputForStorage(),
                                 result.getErrorForStorage()
                         );
-                        recordPracticeAttemptForStatistics(result.success, code);
                     }
                 });
             }
@@ -424,18 +421,4 @@ public class PracticeTaskActivity extends AppCompatActivity {
     }
     private int dp(int value) { return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics())); }
     private boolean isBlank(String value) { return value == null || value.trim().isEmpty(); }
-
-
-    private void recordPracticeAttemptForStatistics(final boolean accepted, final String code) {
-        if (task == null) return;
-        final String taskId = task.id == null ? "" : task.id;
-        final String taskTitle = task.getTitle() == null ? taskId : task.getTitle();
-        new Thread(new Runnable() {
-            
-            public void run() {
-                new StatisticsRepository(getApplicationContext())
-                        .registerSolvedTask(taskId, taskTitle, accepted, accepted ? 100 : 0, code);
-            }
-        }).start();
-    }
 }

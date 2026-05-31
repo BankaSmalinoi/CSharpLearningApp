@@ -18,5 +18,4 @@
             android:id="@+id/nav_progress"
             android:title="Статистика" />
     </group>
-
 </menu>
